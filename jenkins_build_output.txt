@@ -1,0 +1,123 @@
+Started by user Admin
+Obtained Jenkinsfile from git https://github.com/dhamodaranv/devops_assessment.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/dockerhub
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 77b482c7-2dcb-4649-b9cd-b0824139469b
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/dockerhub/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dhamodaranv/devops_assessment.git # timeout=10
+Fetching upstream changes from https://github.com/dhamodaranv/devops_assessment.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/dhamodaranv/devops_assessment.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 99f7b1e41b40038831ac0c17157658e0ad84483a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 99f7b1e41b40038831ac0c17157658e0ad84483a # timeout=10
+Commit message: "Create Jenkinsfile"
+ > git rev-list --no-walk 2ab807c47086864a6dcdc426057e57ad4a2e513f # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKERHUB_CREDENTIALS or $DOCKERHUB_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone the SCM Repo)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 77b482c7-2dcb-4649-b9cd-b0824139469b
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/dockerhub/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dhamodaranv/devops_assessment.git # timeout=10
+Fetching upstream changes from https://github.com/dhamodaranv/devops_assessment.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/dhamodaranv/devops_assessment.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 99f7b1e41b40038831ac0c17157658e0ad84483a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 99f7b1e41b40038831ac0c17157658e0ad84483a # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master 99f7b1e41b40038831ac0c17157658e0ad84483a # timeout=10
+Commit message: "Create Jenkinsfile"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] sh
++ docker build -t dhamodaranthulasi/assessment:v4 .
+Sending build context to Docker daemon  95.74kB
+
+Step 1/7 : FROM ubuntu
+ ---> 2dc39ba059dc
+Step 2/7 : RUN apt update -y && apt dist-upgrade -y;apt install python3 python3-pip -y
+ ---> Using cache
+ ---> 0fd40a539586
+Step 3/7 : RUN pip3 install flask
+ ---> Using cache
+ ---> 0101be4203bc
+Step 4/7 : COPY prog_lang_app.py /app/prog_lang_app.py
+ ---> Using cache
+ ---> 960ee8592d48
+Step 5/7 : ENV  FLASK_APP=/app/prog_lang_app.py
+ ---> Using cache
+ ---> b4fe62821d6f
+Step 6/7 : EXPOSE 3000
+ ---> Using cache
+ ---> 7f6be8bfb5f3
+Step 7/7 : ENTRYPOINT ["flask", "run", "-h", "0.0.0.0", "-p", "3000"]
+ ---> Using cache
+ ---> 11bbc1973a46
+Successfully built 11bbc1973a46
+Successfully tagged dhamodaranthulasi/assessment:v4
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Login)
+[Pipeline] sh
++ echo ****
++ docker login -u dhamodaranthulasi --password-stdin
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker image to dockerhub)
+[Pipeline] sh
++ docker push dhamodaranthulasi/assessment:v4
+The push refers to repository [docker.io/dhamodaranthulasi/assessment]
+877f22d84649: Preparing
+d91094515cf0: Preparing
+47ebc502da02: Preparing
+7f5cbd8cc787: Preparing
+7f5cbd8cc787: Layer already exists
+47ebc502da02: Layer already exists
+d91094515cf0: Layer already exists
+877f22d84649: Layer already exists
+v4: digest: sha256:95c476f51f47969aaa0367e55c7ad6a4dbc5f21b461cd7c3a7d74aea74c98b18 size: 1160
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
