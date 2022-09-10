@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('b09e1b91-79b4-46e4-b5d1-4cb0b66acb52') #change the credentialsid based on you stored credentials in jenkins.
+		DOCKERHUB_CREDENTIALS=credentials('b09e1b91-79b4-46e4-b5d1-4cb0b66acb52')
 		
 	}
 
@@ -24,7 +24,7 @@ pipeline{
 		stage('Login') {
 
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' #( echo'<dockerhu password> | docker login -u <dockerhubuser> --password-stdin)
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 		stage('Push Docker image to dockerhub') {
