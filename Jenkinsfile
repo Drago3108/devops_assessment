@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('b09e1b91-79b4-46e4-b5d1-4cb0b66acb52') #change the credentialsid based on you stored credentials in jenkins.
+		DOCKERHUB_CREDENTIALS=credentials('b09e1b91-79b4-46e4-b5d1-4cb0b66acb52')
 		
 	}
 
