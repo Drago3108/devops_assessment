@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,request
 
 app = Flask(__name__)
 
@@ -22,6 +22,19 @@ def list_employee_lists():
 @app.route('/employee/empid=<employee_list_empid>')
 def  get_employee_list(employee_list_empid):
    return in_memory_datastore[employee_list_empid]
+
+@app.route('/employee', methods=['GET','POST'])
+def employee_lists_route():
+ if request.method == 'GET':
+     return list_employee_lists()
+ elif request.method == "POST":
+       return create_employee_list(request.get_json(force=True))
+
+def create_employee_list(new_empid):
+   empid_name = new_empid['empid']
+   in_memory_datastore[empid_name] = new_empid
+   return new_empid
+
 
 if __name__=='__main__':
     app.run(debug=True)
