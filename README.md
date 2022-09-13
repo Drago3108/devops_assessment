@@ -18,6 +18,8 @@ below mentioned url
 All Object - URL: http://<dockerhost>:<hostport>/employee
 Particular Object - URL:http://<dockerhost>:<hostport>/employee/empid=1 #here the empid from 1 to 10.
 
+ Inser json input:-
+     Post CURL Command: curl -X POST http://127.0.0.1:3000/employee  -H 'Content-Type: application/json'  -d '{"D.O.B":"28/09/1998","Firstname":"Praveena","Lastname":"R","Salary":"11,000","empid":29}'
 Q3.
 
 You have to install  Plugins.
