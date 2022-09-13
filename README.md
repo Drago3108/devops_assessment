@@ -29,4 +29,4 @@ You have to install  Plugins.
 CI/CD pipeline script attached in jenkins file you have to change the  jenkins dockerhub credentials id, thes id may looks little bit long because forgot to give name during the
 credentials store in jenkins.
 
-
+Kubernetes Object yaml file placed in side k8s directory.
