@@ -19,7 +19,7 @@ in_memory_datastore = {
 def list_employee_lists():
    return {"employee_lists":list(in_memory_datastore.values())}
 
-@app.route('/employee/empid=<employee_list_empid>')
+@app.route('/employee/id=<employee_list_empid>')
 def  get_employee_list(employee_list_empid):
    return in_memory_datastore[employee_list_empid]
 
@@ -31,10 +31,10 @@ def employee_lists_route():
        return create_employee_list(request.get_json(force=True))
 
 def create_employee_list(new_empid):
-   empid_name = new_empid['empid']
-   in_memory_datastore[empid_name] = new_empid
+   list_empid = new_empid['empid']
+   in_memory_datastore[list_empid] = new_empid
    return new_empid
 
 
 if __name__=='__main__':
-    app.run(debug=True)
+   app.run(debug=True)
